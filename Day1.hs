@@ -1,4 +1,4 @@
-module AOC.Day1 where
+module Day1 where
 
 fuelRequirement :: Int -> Int
 fuelRequirement = subtract 2 . (`quot` 3)
