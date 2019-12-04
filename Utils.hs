@@ -18,4 +18,4 @@ count :: Eq a => a -> [a] -> Int
 count x = length . filter (== x)
 
 pairs :: [a] -> [(a, a)]
-pairs l = zip (init l) (tail l)
+pairs l = zip l (tail l)

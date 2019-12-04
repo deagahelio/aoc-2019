@@ -14,7 +14,7 @@ increasing :: Predicate
 increasing = all (uncurry (<=)) . pairs . show
 
 checkPredicates :: [Predicate] -> Int -> Bool
-checkPredicates preds n = all (\p -> p n) preds
+checkPredicates preds n = all ($ n) preds
 
 validPasswords :: [Predicate] -> [Int] -> Int
 validPasswords preds = count True . map (checkPredicates preds)
