@@ -9,3 +9,7 @@ wordsWhen p s = case dropWhile p s of
 replace :: Int -> a -> [a] -> [a]
 replace i x l = let (ll, _:lr) = splitAt i l
                 in ll ++ x:lr
+
+tail' :: [a] -> [a]
+tail' [] = []
+tail' l = tail l
