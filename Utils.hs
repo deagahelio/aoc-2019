@@ -5,17 +5,26 @@ wordsWhen p s = case dropWhile p s of
                   "" -> []
                   s' -> w : wordsWhen p s''
                           where (w, s'') = break p s'
-                        
+
 replace :: Int -> a -> [a] -> [a]
-replace i x l = let (ll, _:lr) = splitAt i l
-                in ll ++ x:lr
+replace _ _ [] = []
+replace i x' (x:xs)
+  | i == 0 = x':xs
+  | otherwise = x:replace (pred i) x' xs
 
 tail' :: [a] -> [a]
 tail' [] = []
 tail' l = tail l
+
+init' :: [a] -> [a]
+init' [] = []
+init' l = init l
 
 count :: Eq a => a -> [a] -> Int
 count x = length . filter (== x)
 
 pairs :: [a] -> [(a, a)]
 pairs l = zip l (tail l)
+
+digits :: Int -> [Int]
+digits = map (read . return) . show
