@@ -8,10 +8,9 @@ import Data.List ((\\), minimum)
 
 orbitCount :: String -> Map String String -> Int
 orbitCount object orbits =
-  let orbiting = Map.lookup object orbits
-  in case orbiting of
-       Just object' -> orbitCount object' orbits + 1
-       Nothing -> 0
+  case Map.lookup object orbits of
+    Just object' -> orbitCount object' orbits + 1
+    Nothing -> 0
     
 part1 :: Map String String -> Int
 part1 orbits = sum $ map (`orbitCount` orbits) (Map.keys orbits)
