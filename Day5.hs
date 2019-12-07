@@ -5,7 +5,8 @@ import Utils (wordsWhen, replace, digits, init')
 data Status
   = Halted
   | Running
-  deriving Show
+  | Waiting
+  deriving (Show, Eq)
 
 data Computer =
   Computer
@@ -79,7 +80,10 @@ operationInput computer =
       out1 = memory !! (pos + 1)
       (input:inputs') = _inputs computer
       memory' = replace out1 input memory
-  in computer { _memory = memory', _pos = pos + 2, _inputs = inputs' }
+  in
+    if null (_inputs computer)
+    then computer { _status = Waiting }
+    else computer { _memory = memory', _pos = pos + 2, _inputs = inputs' }
 
 operationOutput :: Operation
 operationOutput computer =
@@ -152,6 +156,7 @@ runProgram computer =
   in case _status computer' of
        Halted -> computer'
        Running -> runProgram computer'
+       Waiting -> computer' { _status = Running }
 
 runWithInput :: Int -> [Int] -> [Int]
 runWithInput id ints =
