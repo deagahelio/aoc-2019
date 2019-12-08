@@ -1,10 +1,17 @@
 module Utils where
 
 wordsWhen :: (Char -> Bool) -> String -> [String]
-wordsWhen p s = case dropWhile p s of
-                  "" -> []
-                  s' -> w : wordsWhen p s''
-                          where (w, s'') = break p s'
+wordsWhen p s =
+  case dropWhile p s of
+    "" -> []
+    s' -> w : wordsWhen p s''
+            where (w, s'') = break p s'
+
+wordsEvery :: Int -> String -> [String]
+wordsEvery _ [] = []
+wordsEvery i s =
+  let (w, s') = splitAt i s
+  in w : wordsEvery i s'
 
 replace :: Int -> a -> [a] -> [a]
 replace _ _ [] = []
